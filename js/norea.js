@@ -439,6 +439,34 @@
   });
 
   /* -------------------------------------------------------
+     5c. ACORDEON DE INGREDIENTES
+     Se abre al pasar el cursor, al hacer clic (tactil) y al
+     enfocar con teclado.
+     ------------------------------------------------------- */
+  var ingredientes = Array.prototype.slice.call(document.querySelectorAll('.ing'));
+
+  function abrirIngrediente(tarjeta) {
+    ingredientes.forEach(function (otra) {
+      var activa = otra === tarjeta;
+      otra.classList.toggle('is-activa', activa);
+      otra.setAttribute('aria-expanded', String(activa));
+    });
+  }
+
+  ingredientes.forEach(function (tarjeta) {
+    tarjeta.addEventListener('mouseenter', function () { abrirIngrediente(tarjeta); });
+    tarjeta.addEventListener('click', function () { abrirIngrediente(tarjeta); });
+    tarjeta.addEventListener('focus', function () { abrirIngrediente(tarjeta); });
+
+    tarjeta.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        abrirIngrediente(tarjeta);
+      }
+    });
+  });
+
+  /* -------------------------------------------------------
      6. PAGINACION DE FAQ
      ------------------------------------------------------- */
   var paginasFaq = document.querySelectorAll('.faq-page');

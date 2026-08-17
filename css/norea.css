@@ -24,7 +24,9 @@
   --texto-oscuro-sec:rgba(30,39,20,.68);
 
   --marco:18px;
-  --header-h:84px;
+  --banda-h:34px;
+  /* espacio reservado arriba: banda + pildora */
+  --header-h:calc(var(--banda-h) + 66px);
   --radio:18px;
   --radio-lg:28px;
 
@@ -130,45 +132,88 @@ body{
 }
 
 /* ---------- 3. MARCO FIJO ---------- */
-.frame{
-  position:fixed;
-  inset:0;
-  z-index:60;
-  pointer-events:none;
-  border:var(--marco) solid var(--crema-100);
-  border-radius:calc(var(--marco) + 12px);
-  mix-blend-mode:normal;
-}
+
 @media (max-width:767px){ .frame{display:none;} }
 
-/* ---------- 4. HEADER ---------- */
-.site-header{
+/* ---------- 3b. AVISO DE MAQUETA ----------
+   Barra fija que aclara que el contenido es de ejemplo. Se quita
+   cuando el sitio tenga informacion real y aprobada por la marca.
+   ------------------------------------------- */
+.aviso-demo{
   position:fixed;
   top:0;left:0;right:0;
-  z-index:70;
-  height:var(--header-h);
-  padding:0 clamp(24px,5vw,64px);
+  /* por encima de la intro: el aviso se ve desde el primer segundo */
+  z-index:250;
+  min-height:var(--banda-h);
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  transition:background .4s var(--ease-out), backdrop-filter .4s var(--ease-out);
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:4px 8px;
+  padding:7px 16px;
+  background:var(--ambar);
+  color:var(--musgo-900);
+  font-size:.75rem;
+  line-height:1.3;
+  text-align:center;
 }
-.site-header.is-stuck{
-  background:rgba(30,39,20,.72);
-  backdrop-filter:blur(14px);
+.aviso-demo strong{font-weight:700;}
+.aviso-demo span{opacity:.82;}
+.aviso-corto{display:none;}
+
+@media (max-width:767px){
+  :root{--banda-h:66px;}
+  .aviso-demo{font-size:.7rem;}
+  /* version corta: asi la banda nunca pasa de dos lineas */
+  .aviso-largo{display:none;}
+  .aviso-corto{display:inline;}
 }
+
+/* ---------- 4. HEADER: PILDORA FLOTANTE ----------
+   Logo y navegacion dentro de una misma capsula difuminada,
+   centrada y flotando sobre el contenido.
+   -------------------------------------------------- */
+.site-header{
+  position:fixed;
+  top:calc(var(--banda-h) + 9px);
+  left:50%;
+  transform:translateX(-50%);
+  z-index:70;
+
+  display:flex;
+  align-items:center;
+  gap:clamp(20px,2.6vw,42px);
+  max-width:calc(100% - 2 * (var(--marco) + 14px));
+  padding:10px 24px;
+
+  border-radius:999px;
+  background:rgba(18,24,12,.42);
+  border:1px solid rgba(245,242,233,.16);
+  box-shadow:0 20px 44px -26px rgba(0,0,0,.65);
+  backdrop-filter:blur(16px) saturate(1.25);
+  -webkit-backdrop-filter:blur(16px) saturate(1.25);
+
+  transition:background .45s var(--ease-out), border-color .45s var(--ease-out), color .45s var(--ease-out);
+}
+/* al salir del hero se opaca un poco para no perder contraste */
+.site-header.is-stuck{background:rgba(18,24,12,.62);}
+
 /* invierte colores cuando la seccion activa es clara */
-body.tema-claro .site-header{ color:var(--texto-oscuro); }
-body.tema-claro .site-header.is-stuck{ background:rgba(245,242,233,.78); }
+body.tema-claro .site-header{
+  color:var(--texto-oscuro);
+  background:rgba(245,242,233,.5);
+  border-color:rgba(30,39,20,.12);
+  box-shadow:0 20px 44px -30px rgba(30,39,20,.5);
+}
+body.tema-claro .site-header.is-stuck{background:rgba(245,242,233,.68);}
 body.tema-claro .btn-solid{ background:var(--musgo-800); color:var(--crema-100); }
 body.tema-claro .burger span{ background:var(--texto-oscuro); }
 
-.logo{display:flex;align-items:center;gap:10px;}
-.logo-mark{width:26px;height:26px;color:currentColor;}
+.logo{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+.logo-mark{width:23px;height:23px;color:currentColor;}
 .logo-mark svg{width:100%;height:100%;}
 .logo-text{
-  font-size:1.55rem;
+  font-size:1.35rem;
   font-weight:700;
   letter-spacing:-.03em;
 }
@@ -198,8 +243,9 @@ body.tema-claro .burger span{ background:var(--texto-oscuro); }
 .site-nav a.is-active{opacity:1;}
 
 @media (max-width:1023px){
-  .site-header .site-nav,
-  .site-header .header-cta{display:none;}
+  .site-header .site-nav{display:none;}
+  /* sin el marco, la pildora sube */
+  .site-header{top:calc(var(--banda-h) + 10px);padding:8px 10px 8px 20px;gap:14px;}
 }
 
 /* ---------- 5. BOTONES ---------- */
@@ -441,7 +487,9 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
 
 /* pantallas bajas (laptops de 13"): compacta para que quepa la seccion */
 @media (min-width:1024px) and (max-height:820px){
-  :root{--header-h:70px;}
+  :root{--header-h:calc(var(--banda-h) + 50px);}
+  /* la pildora se compacta para no invadir el contenido */
+  .site-header{top:calc(var(--banda-h) + 6px);padding:8px 20px;}
   .center-rail{padding-block:calc(var(--header-h) + 12px) 28px;}
   .display{font-size:clamp(2.6rem,8vw,5.6rem);}
   .title{font-size:clamp(1.9rem,3.8vw,3rem);}
@@ -982,31 +1030,134 @@ hr.fino{
   .marquesina-pista{animation:none;}
 }
 
-/* ---------- 15. INGREDIENTES ---------- */
+/* ---------- 15. INGREDIENTES: ACORDEON HORIZONTAL ----------
+   Tarjetas colapsadas a una franja; la activa se abre y descubre la
+   foto con su ficha encima. Se abre al pasar el cursor, al hacer clic
+   y al enfocar con teclado.
+   -------------------------------------------------------------- */
 .ingredientes{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:18px;
-  margin-top:8px;
+  display:flex;
+  gap:clamp(8px,1vw,14px);
+  height:clamp(250px,36vh,350px);
+  margin-top:clamp(18px,3vh,34px);
 }
+
 .ing{
-  background:var(--blanco);
-  border-radius:var(--radio);
-  padding:24px 22px 26px;
-  border:1px solid var(--crema-200);
-  transition:transform .5s var(--ease-out), border-color .5s var(--ease-out);
+  position:relative;
+  overflow:hidden;
+  flex:0 0 clamp(64px,6vw,88px);
+  border-radius:14px;
+  cursor:pointer;
+  border:1.2px solid rgba(30,39,20,.12);
+  box-shadow:5px 10px 15px rgba(30,39,20,.18), -2px -5px 10px rgba(30,39,20,.05);
+  /* mientras no haya foto, este degradado hace de relleno */
+  background:linear-gradient(165deg,var(--olivo-500) 0%,var(--musgo-900) 100%);
+  transition:flex .75s var(--ease-out), box-shadow .5s var(--ease-out);
 }
-.ing:hover{transform:translateY(-5px);border-color:var(--lima-400);}
-.ing h3{font-size:1.16rem;font-weight:700;letter-spacing:-.02em;color:var(--musgo-900);}
-.ing-dosis{
-  font-size:.78rem;
+.ing.is-activa{
+  flex:1 1 0%;
+  box-shadow:8px 16px 28px rgba(30,39,20,.28), -2px -5px 10px rgba(30,39,20,.06);
+}
+.ing:focus-visible{outline:2px solid var(--olivo-600);outline-offset:3px;}
+
+.ing-foto{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+/* sin src todavia: se oculta y queda el degradado de fondo */
+.ing-foto[src=""]{display:none;}
+
+/* velo para que el texto se lea sobre cualquier foto */
+.ing::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(18,24,12,.15) 0%, rgba(18,24,12,.82) 72%);
+  opacity:0;
+  transition:opacity .6s var(--ease-out);
+}
+.ing.is-activa::after{opacity:1;}
+
+/* nombre en vertical mientras esta colapsada */
+.ing-vertical{
+  position:absolute;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  writing-mode:vertical-rl;
+  rotate:180deg;
+  font-size:.86rem;
   font-weight:600;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--olivo-600);
-  margin:5px 0 10px;
+  letter-spacing:.06em;
+  color:var(--crema-100);
+  white-space:nowrap;
+  text-shadow:0 1px 6px rgba(0,0,0,.5);
+  transition:opacity .4s var(--ease-out);
+  z-index:2;
 }
-.ing p:last-child{font-size:.9rem;color:var(--texto-oscuro-sec);font-weight:300;}
+.ing.is-activa .ing-vertical{opacity:0;}
+
+.ing-contenido{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  z-index:2;
+  padding:clamp(18px,2vw,26px);
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .55s var(--ease-out) .12s, transform .55s var(--ease-out) .12s;
+  pointer-events:none;
+}
+.ing.is-activa .ing-contenido{opacity:1;transform:translateY(0);}
+
+.ing-contenido h3{
+  font-size:clamp(1.3rem,2.2vw,1.9rem);
+  font-weight:700;
+  letter-spacing:-.03em;
+  color:var(--crema-100);
+  white-space:nowrap;
+}
+.ing-dosis{
+  font-size:.76rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--lima-300);
+  margin:6px 0 10px;
+  white-space:nowrap;
+}
+.ing-texto{
+  font-size:clamp(.88rem,1.05vw,.98rem);
+  font-weight:300;
+  color:var(--texto-claro-sec);
+  max-width:44ch;
+}
+
+/* en pantallas chicas el acordeon se vuelve una columna legible */
+@media (max-width:767px){
+  .ingredientes{
+    flex-direction:column;
+    height:auto;
+    gap:12px;
+  }
+  .ing{
+    flex:0 0 auto;
+    min-height:170px;
+  }
+  .ing.is-activa{flex:0 0 auto;min-height:230px;}
+  .ing-vertical{
+    writing-mode:horizontal-tb;
+    rotate:none;
+    left:clamp(18px,2vw,26px);
+    transform:none;
+    bottom:18px;
+    font-size:1.05rem;
+  }
+  .ing::after{opacity:1;}
+  .ing-contenido h3,.ing-dosis{white-space:normal;}
+}
 
 /* ---------- 16. FAQ ---------- */
 .faq-layout{
