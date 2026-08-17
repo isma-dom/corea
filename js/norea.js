@@ -349,6 +349,22 @@
   });
 
   /* -------------------------------------------------------
+     5a. MARQUESINA DE RESENAS
+     Se duplica el juego de tarjetas de cada pista para que el
+     translate de -50% caiga justo en la costura y el ciclo se vea
+     continuo.
+     ------------------------------------------------------- */
+  document.querySelectorAll('.marquesina-pista').forEach(function (pista) {
+    var originales = Array.prototype.slice.call(pista.children);
+
+    originales.forEach(function (tarjeta) {
+      var copia = tarjeta.cloneNode(true);
+      copia.setAttribute('aria-hidden', 'true');
+      pista.appendChild(copia);
+    });
+  });
+
+  /* -------------------------------------------------------
      5b. FICHAS DE PRODUCTO
      Los numeros de abajo cambian a la vez la ficha de la
      izquierda y la imagen de la derecha.

@@ -864,48 +864,122 @@ hr.fino{
   .fichas-cabecera{flex-direction:column;gap:10px;}
 }
 
-/* ---------- 14. TESTIMONIOS ---------- */
-.testi-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-  margin-top:44px;
+/* ---------- 14. TESTIMONIOS: MARQUESINA DE RESENAS ----------
+   Dos filas que se desplazan solas de izquierda a derecha con
+   @keyframes. El JS duplica las tarjetas de cada pista para que el
+   ciclo no tenga costura.
+   -------------------------------------------------------------- */
+
+.pane--resenas .center-rail{
+  display:block;
+  padding-block:calc(var(--header-h) + 20px) 30px;
 }
-.testi{
-  background:rgba(245,242,233,.08);
-  border:1px solid rgba(245,242,233,.18);
-  border-radius:var(--radio);
-  padding:28px 26px;
-  backdrop-filter:blur(8px);
+.resenas-cabecera{margin-bottom:clamp(24px,4vh,44px);}
+.pane--resenas .title{max-width:22ch;}
+
+/* degradado oscuro arriba -> verde encendido abajo */
+.pane-media--testi{
+  background-color:var(--musgo-900);
+  background-image:
+    radial-gradient(75% 58% at 50% 116%, rgba(195,212,115,.95) 0%, rgba(163,184,76,.7) 26%, rgba(86,107,47,.42) 48%, transparent 72%),
+    radial-gradient(45% 40% at 12% 12%, rgba(110,132,56,.35) 0%, transparent 62%),
+    linear-gradient(180deg,#12180C 0%,#1E2714 46%,#2E3A1F 100%);
+}
+/* el velo por defecto apagaria el degradado */
+.pane--resenas .pane-overlay{
+  background:linear-gradient(180deg, rgba(18,24,12,.5) 0%, transparent 34%);
+}
+
+.resenas{
+  display:grid;
+  gap:clamp(14px,2vh,22px);
+}
+
+.marquesina{
+  overflow:hidden;
+  /* difumina las orillas para que las tarjetas no se corten en seco */
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+}
+
+.marquesina-pista{
+  display:flex;
+  width:max-content;
+  will-change:transform;
+  animation:desliza var(--velocidad,55s) linear infinite;
+}
+
+/* De -50% a 0: el contenido avanza hacia la derecha. El JS duplica
+   las tarjetas, asi que el -50% es exactamente un juego completo.
+   La separacion va como margin-right (y no como gap) para que el
+   ciclo cierre exacto: con gap sobraria medio hueco. */
+@keyframes desliza{
+  from{transform:translate3d(-50%,0,0);}
+  to{transform:translate3d(0,0,0);}
+}
+
+.marquesina:hover .marquesina-pista,
+.marquesina:focus-within .marquesina-pista{animation-play-state:paused;}
+
+.resena{
+  flex:0 0 auto;
+  width:clamp(268px,25vw,340px);
+  margin-right:clamp(14px,1.6vw,22px);
+  padding:clamp(18px,2vw,24px);
+  border-radius:var(--radio-lg);
+  background:rgba(18,24,12,.58);
+  border:1px solid rgba(245,242,233,.14);
+  backdrop-filter:blur(10px);
   display:flex;
   flex-direction:column;
-  gap:20px;
-  justify-content:space-between;
+  gap:clamp(12px,1.6vh,18px);
+  transition:border-color .45s var(--ease-out), background .45s var(--ease-out);
 }
-.testi blockquote{
-  font-size:1.06rem;
+.resena:hover{
+  background:rgba(18,24,12,.74);
+  border-color:rgba(195,212,115,.45);
+}
+
+.resena-estrellas{display:flex;gap:5px;}
+.resena-estrellas svg{
+  width:17px;height:17px;
+  fill:var(--crema-100);
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
+}
+
+.resena-texto{
+  font-size:clamp(.9rem,1.05vw,1rem);
   line-height:1.5;
   font-weight:300;
+  color:var(--texto-claro);
+  flex:1;
 }
-.testi blockquote::before{content:'“';}
-.testi blockquote::after{content:'”';}
-.testi figcaption{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-size:.85rem;
-  color:var(--texto-claro-sec);
-}
-.testi figcaption span:last-child{display:grid;}
-.testi figcaption strong{color:var(--texto-claro);font-weight:600;}
-.avatar{
+.resena-texto::before{content:'\201C';}
+.resena-texto::after{content:'\201D';}
+
+.resena-autor{display:flex;align-items:center;gap:11px;}
+.resena-foto{
   width:38px;height:38px;
   flex:0 0 auto;
   border-radius:50%;
   display:grid;place-items:center;
-  background:var(--olivo-500);
-  color:var(--crema-100);
+  background:linear-gradient(150deg,var(--lima-400),var(--olivo-600));
+  color:var(--musgo-900);
   font-weight:700;
+  font-size:.95rem;
+}
+.resena-datos{
+  display:grid;
+  font-size:.82rem;
+  line-height:1.35;
+  color:var(--texto-claro-sec);
+}
+.resena-datos strong{color:var(--texto-claro);font-weight:600;}
+
+/* sin movimiento: se vuelve una tira que se puede desplazar a mano */
+@media (prefers-reduced-motion:reduce){
+  .marquesina{overflow-x:auto;}
+  .marquesina-pista{animation:none;}
 }
 
 /* ---------- 15. INGREDIENTES ---------- */

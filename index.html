@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/norea.css?v=15">
+<link rel="stylesheet" href="css/norea.css?v=16">
 </head>
 <body>
 
@@ -268,29 +268,199 @@
   </section>
 
   <!-- ---------- 4. TESTIMONIOS ---------- -->
-  <section class="pane" id="testimonios" data-nombre="Testimonios">
-    <div class="pane-media pane-media--testi" data-speed="0.9"></div>
+  <section class="pane pane--resenas" id="testimonios" data-nombre="Testimonios">
+    <div class="pane-media pane-media--testi"></div>
     <div class="pane-overlay"></div>
     <div class="pane-content">
       <div class="center-rail">
-        <div class="container">
+        <div class="container resenas-cabecera">
           <p class="eyebrow" data-anim="fade">03 — Testimonios</p>
           <h2 class="title" data-anim="chars">Lo que dicen quienes ya lo toman</h2>
-          <div class="testi-grid" data-anim="stagger">
-            <figure class="testi">
-              <blockquote>Lo tomo antes de entrenar y el cambio en mi energía fue evidente en la primera semana.</blockquote>
-              <figcaption><span class="avatar" aria-hidden="true">A</span><span><strong>Andrea R.</strong>Crossfit · Guadalajara</span></figcaption>
-            </figure>
-            <figure class="testi">
-              <blockquote>Sabe bien de verdad, que era mi mayor duda con un polvo verde. Se disuelve sin grumos.</blockquote>
-              <figcaption><span class="avatar" aria-hidden="true">M</span><span><strong>Mauricio L.</strong>Estudiante · CDMX</span></figcaption>
-            </figure>
-            <figure class="testi">
-              <blockquote>Cambié el segundo café del día por Cordium y dejé de llegar arrastrándome a las 6 pm.</blockquote>
-              <figcaption><span class="avatar" aria-hidden="true">P</span><span><strong>Paulina S.</strong>Diseñadora · Monterrey</span></figcaption>
-            </figure>
+        </div>
+
+        <!-- Dos filas que se desplazan solas. El JS duplica las tarjetas
+             para que el ciclo no tenga costura. -->
+        <div class="resenas" data-anim="fade">
+        <div class="marquesina">
+          <div class="marquesina-pista" style="--velocidad:52s">
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Lo tomo antes de entrenar y el cambio en mi energía fue evidente en la primera semana.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">A</span>
+              <span class="resena-datos"><strong>Andrea Ramírez</strong>Crossfit · Guadalajara</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Sabe bien de verdad, que era mi mayor duda con un polvo verde. Se disuelve sin grumos.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">M</span>
+              <span class="resena-datos"><strong>Mauricio Lara</strong>Estudiante · CDMX</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Cambié el segundo café del día por Cordium y dejé de llegar arrastrándome a las 6 pm.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">P</span>
+              <span class="resena-datos"><strong>Paulina Sandoval</strong>Diseñadora · Monterrey</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Media hora antes de salir a correr y aguanto el kilometraje sin sentirme pesado.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">D</span>
+              <span class="resena-datos"><strong>Diego Fuentes</strong>Corredor · Querétaro</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">En cierre de mes es lo único que me sostiene sin ponerme acelerada.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">R</span>
+              <span class="resena-datos"><strong>Regina Ortiz</strong>Contadora · Puebla</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Me lo preparo entre servicios. Treinta segundos y no me cae pesado.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">I</span>
+              <span class="resena-datos"><strong>Iván Beltrán</strong>Chef · Mérida</span>
+            </div>
+          </article>
           </div>
-          <p class="ph-nota ph-nota--inline" data-anim="fade">Reemplazar por reseñas reales con foto y, de preferencia, verificadas.</p>
+        </div>
+        <div class="marquesina">
+          <div class="marquesina-pista" style="--velocidad:64s">
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Lo integré a mi desayuno y ya no lo suelto. Se mezcla con lo que sea.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">S</span>
+              <span class="resena-datos"><strong>Sofía Mendoza</strong>Instructora de yoga · Tulum</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Turnos largos en planta. Con esto llego al final del día entero.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">R</span>
+              <span class="resena-datos"><strong>Rodrigo Cano</strong>Ingeniero · Saltillo</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Trabajo de noche y me costaba encontrar algo que no me pusiera nerviosa.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">K</span>
+              <span class="resena-datos"><strong>Karla Estrada</strong>Enfermera · León</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Viajo mucho y el sobre cabe en la mochila. Eso me terminó de convencer.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">T</span>
+              <span class="resena-datos"><strong>Tomás Iriarte</strong>Fotógrafo · Oaxaca</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Seis grupos al día. Se nota la diferencia en la última clase.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">V</span>
+              <span class="resena-datos"><strong>Valeria Nava</strong>Maestra · Toluca</span>
+            </div>
+          </article>
+          <article class="resena">
+            <div class="resena-estrellas" role="img" aria-label="5 de 5 estrellas">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.4.7-4.8 4.3 1.3 6.3L12 16.6 6.4 19.8l1.3-6.3L2.9 9.2l6.4-.7z"/></svg>
+            </div>
+            <p class="resena-texto">Lo uso en salidas largas. La recuperación al día siguiente es otra cosa.</p>
+            <div class="resena-autor">
+              <span class="resena-foto" aria-hidden="true">E</span>
+              <span class="resena-datos"><strong>Emilio Bravo</strong>Ciclista · Xalapa</span>
+            </div>
+          </article>
+          </div>
+        </div>
+        </div>
+
+        <div class="container">
+          <p class="ph-nota ph-nota--inline">Reseñas de ejemplo: reemplazar por opiniones reales con foto y, de preferencia, verificadas.</p>
         </div>
       </div>
     </div>
@@ -428,6 +598,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
-<script src="js/norea.js?v=15"></script>
+<script src="js/norea.js?v=16"></script>
 </body>
 </html>

@@ -9,6 +9,39 @@ Landing de una sola página para Norea (bebidas funcionales en polvo).
 - **Sección "Líneas"**: ficha de producto con conmutador numérico abajo a la
   derecha, inspirada en la referencia de STILL.
 
+## Sobre la marquesina de reseñas ("Testimonios")
+
+Dos filas de tarjetas que se desplazan solas de izquierda a derecha, con
+`@keyframes` puros (sin JavaScript de animación):
+
+```css
+@keyframes desliza{
+  from{transform:translate3d(-50%,0,0);}
+  to{transform:translate3d(0,0,0);}
+}
+```
+
+Cada fila tiene su propia velocidad vía `--velocidad` en el HTML (52s la de
+arriba, 64s la de abajo) para que no parezcan un bloque sólido.
+
+Dos detalles que hacen que el ciclo no tenga costura:
+
+- **El JS duplica las tarjetas** de cada pista al cargar. Así el `-50%` cae
+  exactamente al final del primer juego y el salto es invisible. Las copias
+  llevan `aria-hidden` para no repetirse a los lectores de pantalla.
+- **La separación va como `margin-right` y no como `gap`.** Con `gap` sobraría
+  medio hueco en el ciclo y la costura se notaría: el `-50%` de un track con
+  `gap` no coincide con un juego completo de tarjetas.
+
+Al pasar el cursor (o al enfocar con teclado) la fila se detiene, para poder
+leer. Con `prefers-reduced-motion` no hay animación: se vuelve una tira que se
+desplaza a mano.
+
+El degradado de fondo es la adaptación del morado de la referencia a la paleta:
+oscuro casi negro arriba y un foco de lima encendido abajo al centro
+(`.pane-media--testi`). El velo por defecto de las secciones se sustituye por uno
+que solo oscurece la parte superior, si no apagaría el degradado.
+
 ## Sobre las fichas de producto ("Líneas")
 
 Las dos fichas viven en la misma celda de grid (`grid-area:1/1`), así que al
