@@ -58,6 +58,77 @@ body{
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 
+/* ---------- 2b. INTRO DE CARGA (patron sofihealth) ----------
+   Dos tapas que arrancan cerradas (pantalla verde con una rendija al
+   centro), se abren en vertical y descubren el fondo crema con la
+   palabra gigante. Al final el bloque entero sube y aparece el sitio.
+   -------------------------------------------------------------- */
+
+.intro{display:none;}
+
+/* solo existe si el script inline decidio que toca mostrarla */
+.con-intro{overflow:hidden;}
+.con-intro .intro{display:flex;}
+
+.intro{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:var(--crema-100);
+  will-change:transform;
+}
+
+.intro-tapa{
+  position:absolute;
+  left:0;
+  width:100%;
+  /* 1px extra: evita la linea de subpixel entre las dos tapas */
+  height:calc(50% + 1px);
+  background:var(--musgo-900);
+  will-change:transform;
+}
+.intro-tapa--arriba{top:0;}
+.intro-tapa--abajo{bottom:0;}
+
+.intro-centro{
+  position:relative;
+  color:var(--musgo-900);
+}
+
+.intro-palabras{
+  position:relative;
+  display:grid;
+  place-items:center;
+  min-height:1em;
+  font-size:clamp(3rem,15vw,13rem);
+  font-weight:800;
+  letter-spacing:-.05em;
+  line-height:1;
+}
+.intro-palabra{
+  grid-area:1/1;              /* las tres ocupan el mismo lugar */
+  white-space:nowrap;
+}
+
+.intro-contador,
+.intro-anio{
+  position:absolute;
+  font-size:.8rem;
+  font-weight:600;
+  letter-spacing:.12em;
+  opacity:0;
+}
+.intro-contador{bottom:.6em;right:calc(100% + 18px);}
+.intro-anio{top:.6em;left:calc(100% + 18px);}
+
+@media (max-width:767px){
+  .intro-contador{bottom:auto;top:-2.4em;right:auto;left:0;}
+  .intro-anio{top:auto;bottom:-2.4em;left:auto;right:0;}
+}
+
 /* ---------- 3. MARCO FIJO ---------- */
 .frame{
   position:fixed;
@@ -582,69 +653,215 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
   .stack-final{height:0;}
 }
 
-/* ---------- 13. LINEAS ---------- */
-.lineas-grid{
+/* ---------- 13. LINEAS: FICHAS DE PRODUCTO ----------
+   Ficha a la izquierda, imagen a la derecha, y los numeros de abajo
+   cambian las dos cosas a la vez.
+   -------------------------------------------------------------- */
+
+.fichas-cabecera{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:30px;
+}
+.title--compacto{margin-bottom:0;max-width:20ch;}
+.fichas-conteo{
+  font-size:.8rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  color:var(--texto-oscuro-sec);
+  white-space:nowrap;
+  padding-top:.4em;
+}
+
+/* las dos fichas ocupan la misma celda: al cambiar no salta el alto */
+.fichas{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:26px;
-  margin-top:44px;
+  margin-top:clamp(16px,2.8vh,32px);
 }
-.linea-card{
-  background:var(--blanco);
-  border-radius:var(--radio-lg);
-  overflow:hidden;
+.ficha{
+  grid-area:1/1;
   display:grid;
-  grid-template-columns:150px 1fr;
-  box-shadow:0 18px 50px -28px rgba(30,39,20,.5);
-  transition:transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
+  grid-template-columns:minmax(0,1fr) minmax(0,.92fr);
+  gap:clamp(24px,5vw,70px);
+  align-items:start;
 }
-.linea-card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 30px 70px -30px rgba(30,39,20,.55);
-}
-.linea-visual{
-  display:grid;
-  place-content:center;
-  gap:10px;
-  text-align:center;
-  padding:20px 10px;
-}
-.linea-visual--biot{background:linear-gradient(160deg,#6E8438,#2E3A1F);}
-.linea-visual--cordium{background:linear-gradient(160deg,#8A6B3A,#2E3A1F);}
-.linea-icon{font-size:2.4rem;}
-.linea-body{padding:26px 26px 28px;}
-.linea-body h3{
-  font-size:1.5rem;
+.ficha[hidden]{display:none;}
+
+/* ---- columna izquierda ---- */
+.ficha-codigo{
+  font-size:.76rem;
   font-weight:700;
-  letter-spacing:-.03em;
+  letter-spacing:.22em;
   color:var(--musgo-900);
 }
-.linea-tag{
-  font-size:.78rem;
-  letter-spacing:.1em;
-  text-transform:uppercase;
+.ficha-nombre{
+  font-size:clamp(2.2rem,5.2vw,4.1rem);
+  font-weight:700;
+  line-height:1;
+  letter-spacing:-.045em;
+  margin-top:.18em;
+  color:var(--musgo-900);
+}
+.ficha-punto{color:var(--lima-400);}
+.ficha-sabor{
+  font-size:clamp(.95rem,1.4vw,1.15rem);
+  font-style:italic;
   color:var(--olivo-600);
-  margin:6px 0 12px;
-  font-weight:600;
+  margin-top:.35em;
 }
-.linea-body > p{color:var(--texto-oscuro-sec);font-size:.95rem;font-weight:300;}
-.linea-bullets{margin:16px 0 22px;display:grid;gap:7px;}
-.linea-bullets li{
-  font-size:.9rem;
+.ficha-desc{
+  margin-top:.9em;
+  max-width:46ch;
+  font-size:clamp(.92rem,1.15vw,1.02rem);
+  font-weight:300;
   color:var(--texto-oscuro-sec);
-  padding-left:20px;
+}
+
+/* separadores finos, como en la referencia */
+hr.fino{
+  border:0;
+  border-top:1px solid rgba(30,39,20,.18);
+  margin:clamp(11px,1.9vh,19px) 0;
+  max-width:520px;
+}
+
+.ficha-formula{
+  display:grid;
+  gap:clamp(5px,1vh,10px);
+  max-width:520px;
+}
+.ficha-formula li{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  align-items:baseline;
+  gap:18px;
+  font-size:clamp(.88rem,1.1vw,1rem);
+  color:var(--texto-oscuro-sec);
+}
+.dosis{
+  font-weight:600;
+  color:var(--musgo-900);
+  font-variant-numeric:tabular-nums;
+}
+.dosis i{
+  font-style:normal;
+  font-size:.68em;
+  font-weight:500;
+  letter-spacing:.06em;
+  margin-left:2px;
+  color:var(--texto-oscuro-sec);
+  text-transform:uppercase;
+}
+
+.ficha-total{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:20px;
+  max-width:520px;
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--texto-oscuro-sec);
+}
+.ficha-total .dosis{
+  font-size:1.24rem;
+  letter-spacing:normal;
+  text-transform:none;
+}
+
+/* ---- columna derecha ---- */
+.ficha-visual{
   position:relative;
+  display:grid;
+  place-items:center;
+  min-height:clamp(210px,38vh,370px);
+  isolation:isolate;
 }
-.linea-bullets li::before{
+.ficha-etiqueta{
+  position:absolute;
+  top:0;left:0;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--texto-oscuro-sec);
+}
+/* numeral gigante en contorno, detras del producto */
+.ficha-fantasma{
+  position:absolute;
+  right:0;
+  bottom:-.08em;
+  z-index:-1;
+  font-size:clamp(11rem,26vw,22rem);
+  font-weight:700;
+  line-height:.78;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(30,39,20,.16);
+  pointer-events:none;
+  user-select:none;
+}
+.ficha-imagen{
+  width:min(100%,320px);
+  aspect-ratio:3/4;
+  border-radius:var(--radio-lg);
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(70% 55% at 50% 22%, rgba(163,184,76,.28) 0%, transparent 65%),
+    linear-gradient(168deg,#FFFFFF 0%,#E9E4D4 100%);
+  border:1px solid rgba(30,39,20,.1);
+  box-shadow:0 30px 60px -34px rgba(30,39,20,.5);
+}
+
+/* ---- pie: nota y numeros ---- */
+.fichas-pie{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:26px;
+  margin-top:clamp(13px,2.2vh,24px);
+}
+.fichas-pie .nota-legal{margin-top:0;max-width:52ch;}
+
+.fichas-nav{
+  display:flex;
+  gap:22px;
+  flex:0 0 auto;
+}
+.fichas-nav button{
+  font-size:.86rem;
+  font-weight:600;
+  letter-spacing:.12em;
+  color:rgba(30,39,20,.38);
+  padding:6px 0;
+  position:relative;
+  transition:color .4s var(--ease-out);
+}
+.fichas-nav button::after{
   content:'';
-  position:absolute;left:0;top:.55em;
-  width:7px;height:7px;
-  border-radius:50%;
-  background:var(--lima-400);
+  position:absolute;
+  left:0;bottom:0;
+  width:100%;height:1.5px;
+  background:currentColor;
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform .45s var(--ease-out);
 }
-@media (max-width:560px){
-  .linea-card{grid-template-columns:1fr;}
-  .linea-visual{padding:30px;}
+.fichas-nav button:hover{color:rgba(30,39,20,.7);}
+.fichas-nav button.is-activa{color:var(--musgo-900);}
+.fichas-nav button.is-activa::after{transform:scaleX(1);transform-origin:left;}
+
+@media (max-width:900px){
+  .ficha{grid-template-columns:1fr;gap:26px;}
+  .ficha-visual{min-height:0;order:-1;}
+  .ficha-imagen{width:min(100%,240px);}
+  .ficha-etiqueta{position:static;margin-bottom:12px;}
+  .ficha-fantasma{display:none;}
+  .fichas-pie{flex-direction:column;align-items:flex-start;gap:16px;}
+  .fichas-cabecera{flex-direction:column;gap:10px;}
 }
 
 /* ---------- 14. TESTIMONIOS ---------- */

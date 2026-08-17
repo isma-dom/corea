@@ -9,9 +9,41 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/norea.css?v=8">
+<link rel="stylesheet" href="css/norea.css?v=15">
 </head>
 <body>
+
+<!-- Decide antes de pintar si toca mostrar la intro. Va inline y arriba
+     de todo para que no haya parpadeo en las visitas siguientes. -->
+<script>
+(function () {
+  // true  = la intro solo corre la primera vez de cada sesion (para produccion)
+  // false = corre en cada recarga (comodo mientras se trabaja en ella)
+  window.NOREA_INTRO_UNA_VEZ = false;
+
+  try {
+    var visto = window.NOREA_INTRO_UNA_VEZ && sessionStorage.getItem('norea-intro');
+    var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!visto && !quieto) document.documentElement.classList.add('con-intro');
+  } catch (e) {}
+})();
+</script>
+
+<!-- ====================== INTRO DE CARGA (patron sofihealth) ====================== -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-tapa intro-tapa--arriba"></div>
+  <div class="intro-tapa intro-tapa--abajo"></div>
+
+  <div class="intro-centro">
+    <p class="intro-contador" id="intro-contador">001</p>
+    <div class="intro-palabras">
+      <p class="intro-palabra">Diseño</p>
+      <p class="intro-palabra">Sabor</p>
+      <p class="intro-palabra">Experiencia</p>
+    </div>
+    <p class="intro-anio">©<span id="intro-anio"></span></p>
+  </div>
+</div>
 
 <!-- ====================== MARCO / FRAME (patron Ordercube) ====================== -->
 <div class="frame" aria-hidden="true"></div>
@@ -147,48 +179,89 @@
     <div class="pane-content">
       <div class="center-rail">
         <div class="container">
-          <p class="eyebrow" data-anim="fade">02 — Nuestras líneas</p>
-          <h2 class="title" data-anim="chars">Dos líneas diseñadas para ti</h2>
-          <div class="lineas-grid" data-anim="stagger">
+          <div class="fichas-cabecera">
+            <div>
+              <p class="eyebrow" data-anim="fade">02 — Nuestras líneas</p>
+              <h2 class="title title--compacto" data-anim="chars">Dos líneas diseñadas para ti</h2>
+            </div>
+            <p class="fichas-conteo" data-anim="fade"><span id="ficha-actual">1</span> / 2</p>
+          </div>
 
-            <article class="linea-card">
-              <div class="linea-visual linea-visual--biot">
-                <span class="linea-icon" aria-hidden="true">🌿</span>
-                <span class="ph-nota">Imagen de producto</span>
-              </div>
-              <div class="linea-body">
-                <h3>BiotEssentials</h3>
-                <p class="linea-tag">Microalgas · Nutrición profunda</p>
-                <p>Espirulina y chlorella como base. Densidad nutricional en una cucharada, para sumar a lo que ya comes.</p>
-                <ul class="linea-bullets">
-                  <li>Proteína vegetal completa</li>
-                  <li>Hierro, B12 y clorofila</li>
-                  <li>30 porciones por envase</li>
+          <div class="fichas">
+
+            <!-- ---- Ficha 01 ---- -->
+            <article class="ficha is-activa" id="ficha-1" role="tabpanel" aria-labelledby="tab-1">
+              <div class="ficha-info" data-anim="stagger">
+                <p class="ficha-codigo">NOREA.01</p>
+                <h3 class="ficha-nombre">BiotEssentials<span class="ficha-punto" aria-hidden="true">.</span></h3>
+                <p class="ficha-sabor">Espirulina &amp; Chlorella</p>
+                <p class="ficha-desc">Microalgas como base, sin rellenos. Densidad nutricional en una cucharada, pensada para sumar a lo que ya comes y no para sustituirlo.</p>
+
+                <hr class="fino">
+
+                <ul class="ficha-formula">
+                  <li><span class="dosis">3,000<i>mg</i></span><span>Espirulina</span></li>
+                  <li><span class="dosis">2,000<i>mg</i></span><span>Chlorella</span></li>
+                  <li><span class="dosis">500<i>mg</i></span><span>Moringa</span></li>
+                  <li><span class="dosis">300<i>mg</i></span><span>Alfalfa</span></li>
                 </ul>
-                <a href="#contacto" class="btn btn-solid btn-sm">Ver BiotEssentials</a>
+
+                <hr class="fino">
+
+                <p class="ficha-total">
+                  <span>Mezcla activa</span>
+                  <span class="dosis">5,800<i>mg</i></span>
+                </p>
+              </div>
+
+              <div class="ficha-visual" data-anim="fade">
+                <p class="ficha-etiqueta">Nutrición profunda</p>
+                <span class="ficha-fantasma" aria-hidden="true">1</span>
+                <div class="ficha-imagen"><span class="ph-nota">Foto producto 01</span></div>
               </div>
             </article>
 
-            <article class="linea-card">
-              <div class="linea-visual linea-visual--cordium">
-                <span class="linea-icon" aria-hidden="true">🍄</span>
-                <span class="ph-nota">Imagen de producto</span>
-              </div>
-              <div class="linea-body">
-                <h3>Cordium</h3>
-                <p class="linea-tag">Adaptógenos · Rendimiento funcional</p>
-                <p>Hongos funcionales y adaptógenos para acompañar días exigentes, sin la montaña rusa de los estimulantes.</p>
-                <ul class="linea-bullets">
-                  <li>Cordyceps y melena de león</li>
-                  <li>Sin azúcar añadida</li>
-                  <li>30 porciones por envase</li>
+            <!-- ---- Ficha 02 ---- -->
+            <article class="ficha" id="ficha-2" role="tabpanel" aria-labelledby="tab-2" hidden>
+              <div class="ficha-info">
+                <p class="ficha-codigo">NOREA.02</p>
+                <h3 class="ficha-nombre">Cordium<span class="ficha-punto" aria-hidden="true">.</span></h3>
+                <p class="ficha-sabor">Cordyceps &amp; Melena de león</p>
+                <p class="ficha-desc">Hongos funcionales y adaptógenos para acompañar días exigentes, sin la montaña rusa que dejan los estimulantes.</p>
+
+                <hr class="fino">
+
+                <ul class="ficha-formula">
+                  <li><span class="dosis">500<i>mg</i></span><span>Cordyceps</span></li>
+                  <li><span class="dosis">500<i>mg</i></span><span>Melena de león</span></li>
+                  <li><span class="dosis">300<i>mg</i></span><span>Ashwagandha</span></li>
+                  <li><span class="dosis">150<i>mg</i></span><span>Rhodiola Rosea</span></li>
                 </ul>
-                <a href="#contacto" class="btn btn-solid btn-sm">Ver Cordium</a>
+
+                <hr class="fino">
+
+                <p class="ficha-total">
+                  <span>Mezcla activa</span>
+                  <span class="dosis">1,450<i>mg</i></span>
+                </p>
+              </div>
+
+              <div class="ficha-visual">
+                <p class="ficha-etiqueta">Rendimiento funcional</p>
+                <span class="ficha-fantasma" aria-hidden="true">2</span>
+                <div class="ficha-imagen"><span class="ph-nota">Foto producto 02</span></div>
               </div>
             </article>
 
           </div>
-          <p class="nota-legal" data-anim="fade">Este producto no es un medicamento. El consumo de este producto es responsabilidad de quien lo recomienda y de quien lo usa.</p>
+
+          <div class="fichas-pie">
+            <p class="nota-legal">Dosis de ejemplo: ajustar a la formulación real. Este producto no es un medicamento.</p>
+            <nav class="fichas-nav" role="tablist" aria-label="Líneas de producto">
+              <button type="button" id="tab-1" role="tab" class="is-activa" data-ficha="1" aria-selected="true" aria-controls="ficha-1">01</button>
+              <button type="button" id="tab-2" role="tab" data-ficha="2" aria-selected="false" aria-controls="ficha-2">02</button>
+            </nav>
+          </div>
         </div>
       </div>
     </div>
@@ -355,6 +428,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
-<script src="js/norea.js?v=8"></script>
+<script src="js/norea.js?v=15"></script>
 </body>
 </html>
