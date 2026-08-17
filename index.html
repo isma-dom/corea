@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norea — Nutre tu potencial</title>
+<meta name="description" content="Norea crea bebidas funcionales en polvo para quienes no se detienen. Dos lineas: BiotEssentials con microalgas y Cordium con adaptogenos.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/norea.css?v=8">
+</head>
+<body>
+
+<!-- ====================== MARCO / FRAME (patron Ordercube) ====================== -->
+<div class="frame" aria-hidden="true"></div>
+
+<!-- ====================== HEADER ====================== -->
+<header class="site-header">
+  <a href="#inicio" class="logo" aria-label="Norea, inicio">
+    <span class="logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="14" r="7" fill="currentColor"/><path d="M6 40a14 14 0 0 1 28 0z" fill="currentColor"/></svg>
+    </span>
+    <span class="logo-text">norea</span>
+  </a>
+
+  <nav class="site-nav" aria-label="Navegacion principal">
+    <a href="#para-quien">Para quién</a>
+    <a href="#lineas">Líneas</a>
+    <a href="#testimonios">Testimonios</a>
+    <a href="#ciencia">Ciencia</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <a href="#contacto" class="btn btn-solid header-cta">Comprar</a>
+
+  <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- ====================== MENU MOVIL ====================== -->
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <nav aria-label="Navegación móvil">
+    <a href="#para-quien">Para quién</a>
+    <a href="#lineas">Líneas</a>
+    <a href="#testimonios">Testimonios</a>
+    <a href="#ciencia">Ciencia</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contacto">Comprar</a>
+  </nav>
+</div>
+
+<!-- ====================== PAGINACION LATERAL ====================== -->
+<nav class="dots" id="dots" aria-label="Secciones de la página"></nav>
+
+<!-- ====================== CONTENIDO ====================== -->
+<main id="scroll-content">
+
+  <!-- ---------- 1. HERO ---------- -->
+  <section class="pane" id="inicio" data-nombre="Inicio">
+    <div class="pane-media pane-media--hero" data-speed="0.85"></div>
+    <div class="pane-overlay"></div>
+    <div class="pane-content">
+      <div class="center-rail">
+        <div class="container hero-layout">
+          <p class="eyebrow" data-anim="fade">Alimentos funcionales · Hecho en México</p>
+          <h1 class="display" data-anim="chars">Nutre tu potencial</h1>
+          <p class="lead" data-anim="lines">Bebidas funcionales en polvo para quienes no se detienen. Fórmulas simples, ingredientes que la ciencia respalda.</p>
+          <div class="hero-actions" data-anim="fade">
+            <a href="#lineas" class="btn btn-solid">Descubre tu línea</a>
+            <a href="#ciencia" class="btn btn-ghost">
+              <span class="btn-circle" aria-hidden="true">→</span>
+              Ver ingredientes
+            </a>
+          </div>
+          <ul class="trust-bar" data-anim="fade">
+            <li>Sin azúcar añadida</li>
+            <li>Ingredientes respaldados por ciencia</li>
+            <li>Envío a todo México</li>
+          </ul>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><span></span>Desliza</div>
+    </div>
+  </section>
+
+  <!-- ---------- 2. PARA QUIEN ---------- -->
+  <section class="pane pane--stack" id="para-quien" data-nombre="Para quién">
+    <div class="pane-media pane-media--quien"></div>
+    <div class="pane-overlay"></div>
+    <div class="pane-content">
+      <div class="center-rail">
+        <div class="container">
+
+          <div class="stack-intro">
+            <p class="eyebrow" data-anim="fade">01 — Para quién</p>
+            <h2 class="title" data-anim="chars">Para los que no se detienen</h2>
+            <p class="lead lead--narrow" data-anim="lines">Creamos alimentos funcionales para personas con alta demanda en su rutina, que cuidan su bienestar todos los días.</p>
+          </div>
+
+          <div class="stack">
+
+            <article class="stack-item" style="--i:0">
+              <p class="stack-num"><span class="stack-punto" aria-hidden="true"></span>Nº001</p>
+              <h3 class="stack-titulo">Deportistas</h3>
+              <div class="stack-visual"><span class="ph-nota">Foto entrenamiento</span></div>
+              <p class="stack-texto">Energía sostenida antes de entrenar y apoyo en la recuperación. Una porción treinta minutos antes de la sesión, sin la carga pesada de un batido completo.</p>
+            </article>
+
+            <article class="stack-item" style="--i:1">
+              <p class="stack-num"><span class="stack-punto" aria-hidden="true"></span>Nº002</p>
+              <h3 class="stack-titulo">Estudiantes</h3>
+              <div class="stack-visual"><span class="ph-nota">Foto estudio</span></div>
+              <p class="stack-texto">Claridad para jornadas largas, sin el bajón de media tarde. Pensado para quien encadena clases, biblioteca y trabajo en el mismo día.</p>
+            </article>
+
+            <article class="stack-item" style="--i:2">
+              <p class="stack-num"><span class="stack-punto" aria-hidden="true"></span>Nº003</p>
+              <h3 class="stack-titulo">Trabajadores</h3>
+              <div class="stack-visual"><span class="ph-nota">Foto oficina</span></div>
+              <p class="stack-texto">Un ritual de treinta segundos que sostiene el resto del día. Se prepara en la oficina con un vaso de agua y cabe en el cajón del escritorio.</p>
+            </article>
+
+            <article class="stack-item" style="--i:3">
+              <p class="stack-num"><span class="stack-punto" aria-hidden="true"></span>Nº004</p>
+              <h3 class="stack-titulo">Bienestar diario</h3>
+              <div class="stack-visual"><span class="ph-nota">Foto cocina</span></div>
+              <p class="stack-texto">Nutrición densa para quien quiere sumar, no complicarse. Se integra a lo que ya comes, sin dietas ni listas de prohibiciones.</p>
+            </article>
+
+            <!-- Recorrido extra para el sticky. Tiene que ser un elemento
+                 real: el padding del contenedor no cuenta para el limite
+                 inferior de position:sticky. -->
+            <div class="stack-final" aria-hidden="true"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 3. LINEAS ---------- -->
+  <section class="pane is-light" id="lineas" data-nombre="Líneas">
+    <div class="pane-media pane-media--claro"></div>
+    <div class="pane-content">
+      <div class="center-rail">
+        <div class="container">
+          <p class="eyebrow" data-anim="fade">02 — Nuestras líneas</p>
+          <h2 class="title" data-anim="chars">Dos líneas diseñadas para ti</h2>
+          <div class="lineas-grid" data-anim="stagger">
+
+            <article class="linea-card">
+              <div class="linea-visual linea-visual--biot">
+                <span class="linea-icon" aria-hidden="true">🌿</span>
+                <span class="ph-nota">Imagen de producto</span>
+              </div>
+              <div class="linea-body">
+                <h3>BiotEssentials</h3>
+                <p class="linea-tag">Microalgas · Nutrición profunda</p>
+                <p>Espirulina y chlorella como base. Densidad nutricional en una cucharada, para sumar a lo que ya comes.</p>
+                <ul class="linea-bullets">
+                  <li>Proteína vegetal completa</li>
+                  <li>Hierro, B12 y clorofila</li>
+                  <li>30 porciones por envase</li>
+                </ul>
+                <a href="#contacto" class="btn btn-solid btn-sm">Ver BiotEssentials</a>
+              </div>
+            </article>
+
+            <article class="linea-card">
+              <div class="linea-visual linea-visual--cordium">
+                <span class="linea-icon" aria-hidden="true">🍄</span>
+                <span class="ph-nota">Imagen de producto</span>
+              </div>
+              <div class="linea-body">
+                <h3>Cordium</h3>
+                <p class="linea-tag">Adaptógenos · Rendimiento funcional</p>
+                <p>Hongos funcionales y adaptógenos para acompañar días exigentes, sin la montaña rusa de los estimulantes.</p>
+                <ul class="linea-bullets">
+                  <li>Cordyceps y melena de león</li>
+                  <li>Sin azúcar añadida</li>
+                  <li>30 porciones por envase</li>
+                </ul>
+                <a href="#contacto" class="btn btn-solid btn-sm">Ver Cordium</a>
+              </div>
+            </article>
+
+          </div>
+          <p class="nota-legal" data-anim="fade">Este producto no es un medicamento. El consumo de este producto es responsabilidad de quien lo recomienda y de quien lo usa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 4. TESTIMONIOS ---------- -->
+  <section class="pane" id="testimonios" data-nombre="Testimonios">
+    <div class="pane-media pane-media--testi" data-speed="0.9"></div>
+    <div class="pane-overlay"></div>
+    <div class="pane-content">
+      <div class="center-rail">
+        <div class="container">
+          <p class="eyebrow" data-anim="fade">03 — Testimonios</p>
+          <h2 class="title" data-anim="chars">Lo que dicen quienes ya lo toman</h2>
+          <div class="testi-grid" data-anim="stagger">
+            <figure class="testi">
+              <blockquote>Lo tomo antes de entrenar y el cambio en mi energía fue evidente en la primera semana.</blockquote>
+              <figcaption><span class="avatar" aria-hidden="true">A</span><span><strong>Andrea R.</strong>Crossfit · Guadalajara</span></figcaption>
+            </figure>
+            <figure class="testi">
+              <blockquote>Sabe bien de verdad, que era mi mayor duda con un polvo verde. Se disuelve sin grumos.</blockquote>
+              <figcaption><span class="avatar" aria-hidden="true">M</span><span><strong>Mauricio L.</strong>Estudiante · CDMX</span></figcaption>
+            </figure>
+            <figure class="testi">
+              <blockquote>Cambié el segundo café del día por Cordium y dejé de llegar arrastrándome a las 6 pm.</blockquote>
+              <figcaption><span class="avatar" aria-hidden="true">P</span><span><strong>Paulina S.</strong>Diseñadora · Monterrey</span></figcaption>
+            </figure>
+          </div>
+          <p class="ph-nota ph-nota--inline" data-anim="fade">Reemplazar por reseñas reales con foto y, de preferencia, verificadas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 5. CIENCIA ---------- -->
+  <section class="pane is-light" id="ciencia" data-nombre="Ciencia">
+    <div class="pane-media pane-media--claro"></div>
+    <div class="pane-content">
+      <div class="center-rail">
+        <div class="container">
+          <p class="eyebrow" data-anim="fade">04 — Nuestra ciencia</p>
+          <h2 class="title" data-anim="chars">Formulado con lo que la ciencia respalda</h2>
+          <p class="lead lead--narrow" data-anim="lines">Cada ingrediente entra por una razón y en una dosis definida. Nada de listas infinitas para llenar etiqueta.</p>
+          <div class="ingredientes" data-anim="stagger">
+            <article class="ing">
+              <h3>Espirulina</h3>
+              <p class="ing-dosis">3 g por porción</p>
+              <p>Microalga con perfil proteico completo, hierro y ficocianina.</p>
+            </article>
+            <article class="ing">
+              <h3>Chlorella</h3>
+              <p class="ing-dosis">2 g por porción</p>
+              <p>Aporta clorofila, fibra y un perfil amplio de micronutrientes.</p>
+            </article>
+            <article class="ing">
+              <h3>Cordyceps</h3>
+              <p class="ing-dosis">500 mg por porción</p>
+              <p>Hongo funcional usado tradicionalmente en contextos de esfuerzo físico.</p>
+            </article>
+            <article class="ing">
+              <h3>Melena de león</h3>
+              <p class="ing-dosis">500 mg por porción</p>
+              <p>Hongo funcional asociado al bienestar cognitivo en la literatura.</p>
+            </article>
+          </div>
+          <p class="nota-legal" data-anim="fade">Las dosis mostradas son de ejemplo: ajustar a la formulación real antes de publicar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 6. FAQ ---------- -->
+  <section class="pane" id="faq" data-nombre="FAQ">
+    <div class="pane-media pane-media--faq"></div>
+    <div class="pane-content">
+      <div class="center-rail">
+        <div class="container faq-layout">
+          <div class="faq-header">
+            <p class="eyebrow" data-anim="fade">05 — Preguntas</p>
+            <h2 class="title" data-anim="chars">Las dudas más comunes</h2>
+            <p class="lead lead--narrow" data-anim="lines">Si no encuentras la tuya, escríbenos por WhatsApp y te respondemos.</p>
+          </div>
+
+          <div class="faq-list" data-anim="stagger">
+            <div class="faq-page" data-pagina="1">
+              <details class="faq-item"><summary>¿Cómo se prepara?<span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-body"><p>Una cucharada medidora en 250 ml de agua fría, jugo o tu bebida vegetal favorita. Agita 10 segundos y listo.</p></div></details>
+              <details class="faq-item"><summary>¿A qué sabe?<span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-body"><p>BiotEssentials tiene notas herbales suaves; Cordium es más neutro con fondo de cacao. Ninguno lleva azúcar añadida.</p></div></details>
+              <details class="faq-item"><summary>¿Cuántas porciones trae?<span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-body"><p>30 porciones por envase, es decir un mes tomando una al día.</p></div></details>
+              <details class="faq-item"><summary>¿Puedo tomar las dos líneas juntas?<span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-body"><p>Sí. Muchos toman BiotEssentials en la mañana y Cordium antes de entrenar o a media tarde.</p></div></details>
+            </div>
+            <div class="faq-page" data-pagina="2" hidden>
+              <details class="faq-item"><summary>¿Cuánto tarda el envío?<span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-body"><p>De 2 a 4 días hábiles en la República Mexicana. Envío gratis en compras mayores a $800.</p></div></details>
+              <details class="faq-item"><summary>¿Tienen suscripción?<span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-body"><p>Sí, con descuento sobre el precio de lista. Puedes pausarla o cancelarla cuando quieras.</p></div></details>
+              <details class="faq-item"><summary>¿Es apto para vegetarianos y veganos?<span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-body"><p>Sí, ambas líneas son 100% de origen vegetal.</p></div></details>
+              <details class="faq-item"><summary>¿Puedo tomarlo si estoy en tratamiento médico?<span class="faq-plus" aria-hidden="true"></span></summary><div class="faq-body"><p>Consulta a tu médico antes de incorporar cualquier suplemento, sobre todo durante embarazo, lactancia o tratamiento.</p></div></details>
+            </div>
+          </div>
+
+          <div class="faq-pagination" role="tablist" aria-label="Páginas de preguntas">
+            <button class="faq-dot is-active" data-ir="1" role="tab" aria-selected="true">1</button>
+            <button class="faq-dot" data-ir="2" role="tab" aria-selected="false">2</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 7. CONTACTO ---------- -->
+  <section class="pane" id="contacto" data-nombre="Contacto">
+    <div class="pane-media pane-media--contacto" data-speed="0.9"></div>
+    <div class="pane-overlay"></div>
+    <div class="pane-content">
+      <div class="center-rail">
+        <div class="container contacto-layout">
+          <div class="contacto-main">
+            <p class="eyebrow" data-anim="fade">06 — Empieza hoy</p>
+            <h2 class="title" data-anim="chars">Nutre tu potencial</h2>
+            <p class="lead lead--narrow" data-anim="lines">Déjanos tu correo y te enviamos 10% de descuento en tu primer pedido.</p>
+
+            <form class="form-newsletter" data-anim="fade" novalidate>
+              <label class="sr-only" for="correo">Correo electrónico</label>
+              <input type="email" id="correo" name="correo" placeholder="tu@correo.com" required autocomplete="email">
+              <button type="submit" class="btn btn-solid">Quiero mi descuento</button>
+              <p class="form-msg" id="form-msg" role="status"></p>
+            </form>
+            <p class="nota-legal" data-anim="fade">Al enviar aceptas nuestro <a href="#">aviso de privacidad</a>. Sin spam, puedes darte de baja cuando quieras.</p>
+          </div>
+
+          <footer class="site-footer" data-anim="fade">
+            <div class="footer-col">
+              <span class="logo-text">norea</span>
+              <p>Nutre tu potencial.</p>
+            </div>
+            <div class="footer-col">
+              <h4>Producto</h4>
+              <a href="#lineas">BiotEssentials</a>
+              <a href="#lineas">Cordium</a>
+              <a href="#ciencia">Ingredientes</a>
+            </div>
+            <div class="footer-col">
+              <h4>Contacto</h4>
+              <a href="https://wa.me/52">WhatsApp</a>
+              <a href="mailto:hola@norea.mx">hola@norea.mx</a>
+              <a href="https://instagram.com">Instagram</a>
+            </div>
+            <div class="footer-col">
+              <h4>Legal</h4>
+              <a href="#">Aviso de privacidad</a>
+              <a href="#">Términos</a>
+              <a href="#">Envíos y devoluciones</a>
+            </div>
+            <p class="footer-legal">© <span id="anio"></span> Norea. Este producto no es un medicamento.</p>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<a class="wa-float" href="https://wa.me/52" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2m0 2a8 8 0 1 1-4.1 14.9l-.3-.2-2.6.7.7-2.5-.2-.3A8 8 0 0 1 12 4m-3.4 4c-.2 0-.5 0-.7.4-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.7 2.8 4.3 3.8 2.1.8 2.5.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.6-.3s-1.2-.6-1.4-.7c-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.3.1-.4l.4-.5.3-.5v-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
+<script src="js/norea.js?v=8"></script>
+</body>
+</html>
