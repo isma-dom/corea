@@ -403,15 +403,27 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
 .pane.is-light .lead{color:var(--texto-oscuro-sec);}
 
 /* fondos por seccion: gradientes organicos + grano */
+/* El hero lleva la foto de fondo, apagada con un velo verde para que
+   el titulo se siga leyendo. Toda la atenuacion se controla desde
+   --velo-hero: mas alto = foto mas apagada. */
 .pane-media--hero{
-  background-color:var(--musgo-800);
+  --velo-hero:.74;
+
+  background-color:var(--musgo-900);
   background-image:
-    radial-gradient(60% 55% at 18% 30%, rgba(163,184,76,.55) 0%, transparent 60%),
-    radial-gradient(50% 50% at 78% 22%, rgba(233,162,59,.35) 0%, transparent 62%),
-    radial-gradient(70% 60% at 62% 88%, rgba(110,132,56,.75) 0%, transparent 65%),
-    linear-gradient(160deg,#3D4C28 0%,#1E2714 100%);
-  filter:blur(0.5px);
+    /* toque de color de la marca */
+    radial-gradient(58% 52% at 16% 26%, rgba(163,184,76,.24) 0%, transparent 62%),
+    radial-gradient(46% 46% at 82% 20%, rgba(233,162,59,.16) 0%, transparent 62%),
+    /* velo: mas claro arriba, mas cerrado abajo para asentar el texto */
+    linear-gradient(180deg,
+      rgba(18,24,12,.58) 0%,
+      rgba(30,39,20,var(--velo-hero)) 42%,
+      rgba(18,24,12,.9) 100%),
+    /* la foto va hasta abajo de la pila */
+    url('../imagenes/persona_tomando_jugo.jpeg');
 }
+/* el velo del hero ya lo hace la capa de arriba; aqui solo queda el grano */
+#inicio .pane-overlay{background:none;}
 .pane-media--quien{
   background-color:var(--musgo-900);
   background-image:
@@ -490,6 +502,9 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
   :root{--header-h:calc(var(--banda-h) + 50px);}
   /* la pildora se compacta para no invadir el contenido */
   .site-header{top:calc(var(--banda-h) + 6px);padding:8px 20px;}
+  /* con foto real la columna visual manda: se encoge para que la
+     seccion siga cabiendo en una pantalla y conserve el snap */
+  .ficha-imagen{width:min(100%,264px);}
   .center-rail{padding-block:calc(var(--header-h) + 12px) 28px;}
   .display{font-size:clamp(2.6rem,8vw,5.6rem);}
   .title{font-size:clamp(1.9rem,3.8vw,3rem);}
@@ -676,6 +691,10 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
   border:1px solid rgba(245,242,233,.16);
 }
 
+.stack-visual img{
+  width: 100%;
+}
+
 /* la ultima no necesita apilarse contra nada */
 .stack-item:last-child{margin-bottom:0;}
 
@@ -699,6 +718,138 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
 @media (prefers-reduced-motion:reduce){
   .stack-item{position:static;}
   .stack-final{height:0;}
+}
+
+/* ---------- 12b. POTENCIA TU ENERGIA: TITULO 3D ----------
+   Seccion a pantalla completa con la foto de fondo y el titulo en
+   HTML. El relieve son diez text-shadow apilados de 1 a 10px, mas
+   una sombra suave; al pasar el cursor el titulo se endereza.
+   ---------------------------------------------------------- */
+.pane--cita{
+  /* relleno por si la foto no carga */
+  background:
+    radial-gradient(60% 70% at 30% 40%, rgba(163,184,76,.4) 0%, transparent 62%),
+    linear-gradient(150deg,#3D4C28 0%,#12180C 100%);
+}
+/* Un <img> absoluto NO se estira con solo fijarle los cuatro lados:
+   al ser elemento reemplazado conserva su tamano intrinseco. Hay que
+   darle width/height explicitos. El 128% de alto compensa el inset
+   negativo, que es el margen que necesita el parallax para no
+   descubrir los bordes. */
+.pane-foto{
+  inset:-14% 0;
+  width:100%;
+  height:128%;
+  object-fit:cover;
+  object-position:center;
+}
+.pane-foto[src=""]{display:none;}
+
+/* Velo para que el titulo no compita con la foto. El foco oscuro del
+   centro no es decorativo: sin el, el resplandor del hover cae sobre
+   las zonas claras de la foto y no se distingue. Un halo necesita
+   fondo oscuro contra el cual brillar. */
+.pane--cita .pane-overlay{
+  background:
+    radial-gradient(46% 32% at 50% 50%, rgba(18,24,12,.6) 0%, rgba(18,24,12,.28) 55%, transparent 78%),
+    linear-gradient(180deg, rgba(18,24,12,.45) 0%, rgba(18,24,12,.3) 45%, rgba(18,24,12,.6) 100%);
+}
+
+.cita-layout{
+  display:grid;
+  place-items:center;
+  text-align:center;
+  /* espacio para que el titulo inclinado no toque los bordes */
+  padding-block:clamp(20px,5vh,60px);
+}
+
+.titulo-3d{
+  /* Un solo control para el color del relieve. Tiene que ser un color
+     valido: si var(--sombra-3d) resuelve a algo que no lo es, CSS
+     invalida el text-shadow entero y no se dibuja ni el relieve ni el
+     resplandor. */
+  --sombra-3d:var(--olivo-500);
+
+  display:inline-block;
+  font-size:clamp(2.1rem,7.5vw,5.4rem);
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:-.02em;
+  color:var(--blanco);
+
+  text-shadow:
+    1px 1px 0 var(--sombra-3d),
+    2px 2px 0 var(--sombra-3d),
+    3px 3px 0 var(--sombra-3d),
+    4px 4px 0 var(--sombra-3d),
+    5px 5px 0 var(--sombra-3d),
+    6px 6px 0 var(--sombra-3d),
+    7px 7px 0 var(--sombra-3d),
+    8px 8px 0 var(--sombra-3d),
+    9px 9px 0 var(--sombra-3d),
+    10px 10px 0 var(--sombra-3d),
+    20px 20px 30px rgba(0,0,0,.35);
+
+  transform:perspective(500px) rotateX(30deg);
+  transition:transform .35s ease, text-shadow .35s ease;
+}
+
+/* El efecto se dispara al pasar el cursor por CUALQUIER punto de la
+   seccion, no solo sobre las letras: el selector cuelga de .pane--cita.
+   Al pasar el cursor el titulo se endereza y se enciende.
+
+   El relieve se desvanece en vez de quedarse: son las mismas diez
+   capas pero con alfa 0, asi que la lista conserva su tamano y el
+   navegador puede interpolarla capa por capa. Se usa el verde con
+   alfa 0 y no `transparent` (que es negro transparente) porque si no
+   la transicion pasaria por un tono oscuro a la mitad.
+
+   El resplandor son cuatro capas con desplazamiento 0 y solo
+   desenfoque: asi el halo se pega a la forma de cada letra, en vez de
+   ser un rectangulo como haria box-shadow. Los radios crecen y la
+   opacidad baja para que la luz caiga en gradiente. Van al final de
+   la lista porque las ultimas capas se pintan mas atras. */
+.pane--cita:hover .titulo-3d,
+.titulo-3d:focus-visible{
+  transform:perspective(500px) rotateX(0);
+  text-shadow:
+    1px 1px 0 rgba(110,132,56,0),
+    2px 2px 0 rgba(110,132,56,0),
+    3px 3px 0 rgba(110,132,56,0),
+    4px 4px 0 rgba(110,132,56,0),
+    5px 5px 0 rgba(110,132,56,0),
+    6px 6px 0 rgba(110,132,56,0),
+    7px 7px 0 rgba(110,132,56,0),
+    8px 8px 0 rgba(110,132,56,0),
+    9px 9px 0 rgba(110,132,56,0),
+    10px 10px 0 rgba(110,132,56,0),
+    0 6px 18px rgba(0,0,0,.35),
+    0 0 8px rgba(255,255,255,1),
+    0 0 22px rgba(255,255,255,.8),
+    0 0 48px rgba(195,212,115,.9),
+    0 0 90px rgba(163,184,76,.55);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .titulo-3d{transform:none;}
+}
+
+/* ---------- 12c. FOTOS DENTRO DE CAJAS ----------
+   Un <img> en flujo impone su tamano al contenedor: en .ficha-imagen
+   reventaba el aspect-ratio y estiraba la seccion. Se posiciona en
+   absoluto para que la caja mande, y con object-fit:cover para que
+   recorte sin deformar.
+   ------------------------------------------------- */
+.stack-visual,
+.ficha-imagen{position:relative;}
+
+.stack-visual > img,
+.ficha-imagen > img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 /* ---------- 13. LINEAS: FICHAS DE PRODUCTO ----------
