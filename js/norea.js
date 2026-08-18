@@ -193,6 +193,67 @@
   }
 
   /* -------------------------------------------------------
+     2c. ENTRADA DE LAS RESENAS
+     Orden inverso al del documento: primero la fila de abajo,
+     luego la de arriba y al final la cabecera. Por eso esta
+     seccion no usa data-anim, que va en orden de aparicion en
+     el HTML.
+     ------------------------------------------------------- */
+  function animarResenas() {
+    var seccion = document.querySelector('#testimonios');
+    if (!seccion) return;
+
+    var pistas = seccion.querySelectorAll('.marquesina-pista');
+    var eyebrow = seccion.querySelector('.eyebrow');
+    var titulo = seccion.querySelector('.title');
+    if (pistas.length < 2 || !titulo) return;
+
+    // se anima cada tarjeta, no la pista: la pista lleva el
+    // @keyframes del desplazamiento y un transform la romperia
+    var abajo = Array.prototype.slice.call(pistas[1].children);
+    var arriba = Array.prototype.slice.call(pistas[0].children);
+    var letras = partirEnCaracteres(titulo);
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: seccion,
+        start: 'top 65%',
+        once: true
+      }
+    });
+
+    tl.from(abajo, {
+      y: 44,
+      opacity: 0,
+      duration: 0.7,
+      ease: EASE,
+      stagger: 0.045
+    });
+
+    tl.from(arriba, {
+      y: 44,
+      opacity: 0,
+      duration: 0.7,
+      ease: EASE,
+      stagger: 0.045
+    }, '-=0.45');
+
+    tl.from(eyebrow, {
+      y: 18,
+      opacity: 0,
+      duration: 0.6,
+      ease: EASE
+    }, '-=0.25');
+
+    tl.from(letras, {
+      yPercent: 115,
+      duration: 0.9,
+      ease: EASE,
+      stagger: 0.016
+    }, '-=0.35');
+  }
+
+  /* -------------------------------------------------------
      3. PARALLAX DE FONDOS
      ------------------------------------------------------- */
   function parallax(pane) {
@@ -315,6 +376,7 @@
   function iniciarRevelados() {
     panes.forEach(animarSeccion);
     animarApilado();
+    animarResenas();
     ScrollTrigger.refresh();
   }
 
@@ -562,10 +624,24 @@
     var SALE = 0.28;       // duracion de la salida
     var PAUSA = 0.03;      // respiro entre una palabra y la siguiente
 
-    function terminar() {
+    var revelado = false;
+
+    /* Se llama cuando la cortina termino de salir. El hero no se ve
+       estatico durante la subida porque `html.con-intro [data-anim]`
+       lo mantiene oculto hasta este momento: aqui se quita la clase y
+       enseguida se crean las animaciones, sin repintado entre medias. */
+    function revelarSitio() {
+      if (revelado) return;
+      revelado = true;
+      // hay que devolver el scroll antes de medir: con overflow:hidden
+      // ScrollTrigger calcularia mal las posiciones
       document.documentElement.classList.remove('con-intro');
-      intro.remove();
       alTerminar();
+    }
+
+    function terminar() {
+      revelarSitio();
+      intro.remove();
     }
 
     var tl = gsap.timeline({ onComplete: terminar });

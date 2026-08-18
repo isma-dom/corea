@@ -1073,7 +1073,11 @@ hr.fino{
   display:block;
   padding-block:calc(var(--header-h) + 20px) 30px;
 }
-.resenas-cabecera{margin-bottom:clamp(24px,4vh,44px);}
+.resenas-cabecera{
+  margin-bottom:clamp(24px,4vh,44px);
+  text-align:center;
+}
+.pane--resenas .title{margin-inline:auto;}
 .pane--resenas .title{max-width:22ch;}
 
 /* degradado oscuro arriba -> verde encendido abajo */
@@ -1495,6 +1499,12 @@ hr.fino{
 .js [data-anim]{opacity:0;}
 .js [data-anim="chars"],
 .js [data-anim="lines"]{opacity:1;}
+
+/* Mientras corre la intro se esconde TODO lo animado, incluidos los
+   titulos que normalmente estan visibles porque quien se mueve son sus
+   letras. Sin esto, la cortina descubre el hero con el texto ya puesto
+   y sin animar, y al arrancar el revelado pega un salto. */
+html.con-intro [data-anim]{opacity:0;}
 
 @media (prefers-reduced-motion:reduce){
   .js [data-anim]{opacity:1 !important;transform:none !important;}
