@@ -359,6 +359,9 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
 
 .pane{
   position:relative;
+  /* respaldo para iOS anterior a 15.4, que no entiende svh: sin el,
+     ignora la declaracion entera y las secciones se colapsan */
+  min-height:100vh;
   min-height:100svh;
   display:flex;
   overflow:hidden;
@@ -830,6 +833,21 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
     0 0 90px rgba(163,184,76,.55);
 }
 
+/* En tactil no existe :hover, asi que el titulo se quedaba inclinado
+   para siempre y el resplandor no aparecia nunca. En esos dispositivos
+   se muestra directamente el estado final. */
+@media (hover:none){
+  .titulo-3d{
+    transform:none;
+    text-shadow:
+      0 6px 18px rgba(0,0,0,.35),
+      0 0 8px rgba(255,255,255,1),
+      0 0 22px rgba(255,255,255,.8),
+      0 0 48px rgba(195,212,115,.9),
+      0 0 90px rgba(163,184,76,.55);
+  }
+}
+
 @media (prefers-reduced-motion:reduce){
   .titulo-3d{transform:none;}
 }
@@ -989,16 +1007,19 @@ hr.fino{
   color:var(--texto-oscuro-sec);
 }
 /* numeral gigante en contorno, detras del producto */
+/* El numeral se mide contra el alto de su columna (vh) y no contra el
+   ancho de la ventana: asi guarda siempre la misma proporcion con la
+   tarjeta en vez de crecer sin control en pantallas anchas. */
 .ficha-fantasma{
   position:absolute;
-  right:0;
-  bottom:-.08em;
+  right:-.02em;
+  bottom:-.1em;
   z-index:-1;
-  font-size:clamp(11rem,26vw,22rem);
+  font-size:clamp(7rem,32vh,15rem);
   font-weight:700;
   line-height:.78;
   color:transparent;
-  -webkit-text-stroke:1px rgba(30,39,20,.16);
+  -webkit-text-stroke:1.5px rgba(30,39,20,.3);
   pointer-events:none;
   user-select:none;
 }
@@ -1013,6 +1034,29 @@ hr.fino{
     linear-gradient(168deg,#FFFFFF 0%,#E9E4D4 100%);
   border:1px solid rgba(30,39,20,.1);
   box-shadow:0 30px 60px -34px rgba(30,39,20,.5);
+}
+
+/* Tarjeta sin foto todavia: se presenta como marcador, no como una
+   tarjeta de producto a medio hacer. El borde punteado va en la
+   tarjeta entera y la etiqueta se lee sola, sin su propio recuadro. */
+.ficha-imagen--vacia{
+  border:1.5px dashed rgba(30,39,20,.3);
+  box-shadow:none;
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(30,39,20,.04) 0 10px,
+      transparent 10px 20px),
+    linear-gradient(168deg,#FFFFFF 0%,#EFEBDE 100%);
+}
+.ficha-imagen--vacia .ph-nota{
+  border:0;
+  padding:0;
+  max-width:72%;
+  text-align:center;
+  font-size:.84rem;
+  line-height:1.6;
+  letter-spacing:.16em;
+  color:var(--texto-oscuro-sec);
 }
 
 /* ---- pie: nota y numeros ---- */
@@ -1470,6 +1514,13 @@ hr.fino{
   border-radius:6px;
   padding:4px 8px;
 }
+/* sobre secciones claras la nota se invierte, si no queda crema
+   sobre crema y no se lee */
+.pane.is-light .ph-nota{
+  color:var(--texto-oscuro-sec);
+  border-color:rgba(30,39,20,.32);
+}
+
 .ph-nota--inline{
   display:inline-block;
   margin-top:26px;
