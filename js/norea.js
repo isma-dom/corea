@@ -193,6 +193,67 @@
   }
 
   /* -------------------------------------------------------
+     2c. ENTRADA DE LAS RESENAS
+     Orden inverso al del documento: primero la fila de abajo,
+     luego la de arriba y al final la cabecera. Por eso esta
+     seccion no usa data-anim, que va en orden de aparicion en
+     el HTML.
+     ------------------------------------------------------- */
+  function animarResenas() {
+    var seccion = document.querySelector('#testimonios');
+    if (!seccion) return;
+
+    var pistas = seccion.querySelectorAll('.marquesina-pista');
+    var eyebrow = seccion.querySelector('.eyebrow');
+    var titulo = seccion.querySelector('.title');
+    if (pistas.length < 2 || !titulo) return;
+
+    // se anima cada tarjeta, no la pista: la pista lleva el
+    // @keyframes del desplazamiento y un transform la romperia
+    var abajo = Array.prototype.slice.call(pistas[1].children);
+    var arriba = Array.prototype.slice.call(pistas[0].children);
+    var letras = partirEnCaracteres(titulo);
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: seccion,
+        start: 'top 65%',
+        once: true
+      }
+    });
+
+    tl.from(abajo, {
+      y: 44,
+      opacity: 0,
+      duration: 0.7,
+      ease: EASE,
+      stagger: 0.045
+    });
+
+    tl.from(arriba, {
+      y: 44,
+      opacity: 0,
+      duration: 0.7,
+      ease: EASE,
+      stagger: 0.045
+    }, '-=0.45');
+
+    tl.from(eyebrow, {
+      y: 18,
+      opacity: 0,
+      duration: 0.6,
+      ease: EASE
+    }, '-=0.25');
+
+    tl.from(letras, {
+      yPercent: 115,
+      duration: 0.9,
+      ease: EASE,
+      stagger: 0.016
+    }, '-=0.35');
+  }
+
+  /* -------------------------------------------------------
      3. PARALLAX DE FONDOS
      ------------------------------------------------------- */
   function parallax(pane) {
@@ -277,7 +338,6 @@
   }
 
   panes.forEach(function (pane) {
-    animarSeccion(pane);
     if (!reduce) parallax(pane);
 
     ScrollTrigger.create({
@@ -309,8 +369,16 @@
     }
   });
 
-  animarApilado();
   marcarActiva(panes[0]);
+
+  /* Los revelados se crean cuando la intro termina: si se crearan antes,
+     se dispararian detras del overlay y el hero apareceria ya montado. */
+  function iniciarRevelados() {
+    panes.forEach(animarSeccion);
+    animarApilado();
+    animarResenas();
+    ScrollTrigger.refresh();
+  }
 
   /* -------------------------------------------------------
      5. MENU MOVIL
@@ -340,6 +408,124 @@
   });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') alternarMenu(false);
+  });
+
+  /* -------------------------------------------------------
+     5a. MARQUESINA DE RESENAS
+     Se duplica el juego de tarjetas de cada pista para que el
+     translate de -50% caiga justo en la costura y el ciclo se vea
+     continuo.
+     ------------------------------------------------------- */
+  document.querySelectorAll('.marquesina-pista').forEach(function (pista) {
+    var originales = Array.prototype.slice.call(pista.children);
+
+    originales.forEach(function (tarjeta) {
+      var copia = tarjeta.cloneNode(true);
+      copia.setAttribute('aria-hidden', 'true');
+      pista.appendChild(copia);
+    });
+  });
+
+  /* -------------------------------------------------------
+     5b. FICHAS DE PRODUCTO
+     Los numeros de abajo cambian a la vez la ficha de la
+     izquierda y la imagen de la derecha.
+     ------------------------------------------------------- */
+  var fichas = Array.prototype.slice.call(document.querySelectorAll('.ficha'));
+  var botonesFicha = Array.prototype.slice.call(document.querySelectorAll('.fichas-nav button'));
+  var numeroFicha = document.getElementById('ficha-actual');
+  var fichaActual = 1;
+  var cambiando = false;
+
+  function mostrarFicha(destino) {
+    if (destino === fichaActual || cambiando) return;
+
+    var saliente = fichas[fichaActual - 1];
+    var entrante = fichas[destino - 1];
+    var partes = entrante.querySelectorAll('.ficha-info > *, .ficha-visual');
+
+    cambiando = true;
+    fichaActual = destino;
+
+    botonesFicha.forEach(function (b) {
+      var activa = Number(b.dataset.ficha) === destino;
+      b.classList.toggle('is-activa', activa);
+      b.setAttribute('aria-selected', String(activa));
+    });
+    numeroFicha.textContent = destino;
+
+    if (reduce) {
+      saliente.hidden = true;
+      saliente.classList.remove('is-activa');
+      entrante.hidden = false;
+      entrante.classList.add('is-activa');
+      gsap.set(partes, { clearProps: 'all' });
+      cambiando = false;
+      return;
+    }
+
+    gsap.timeline({ onComplete: function () { cambiando = false; } })
+      .to(saliente, {
+        opacity: 0,
+        y: -18,
+        duration: 0.35,
+        ease: 'power2.in'
+      })
+      .add(function () {
+        saliente.hidden = true;
+        saliente.classList.remove('is-activa');
+        gsap.set(saliente, { opacity: 1, y: 0 });
+        entrante.hidden = false;
+        entrante.classList.add('is-activa');
+      })
+      .fromTo(partes,
+        { opacity: 0, y: 26 },
+        { opacity: 1, y: 0, duration: 0.6, ease: EASE, stagger: 0.055 }
+      );
+  }
+
+  botonesFicha.forEach(function (boton) {
+    boton.addEventListener('click', function () {
+      mostrarFicha(Number(boton.dataset.ficha));
+    });
+
+    // flechas para moverse entre las fichas, como en un tablist
+    boton.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var paso = e.key === 'ArrowRight' ? 1 : -1;
+      var siguiente = ((fichaActual - 1 + paso + fichas.length) % fichas.length) + 1;
+      mostrarFicha(siguiente);
+      botonesFicha[siguiente - 1].focus();
+    });
+  });
+
+  /* -------------------------------------------------------
+     5c. ACORDEON DE INGREDIENTES
+     Se abre al pasar el cursor, al hacer clic (tactil) y al
+     enfocar con teclado.
+     ------------------------------------------------------- */
+  var ingredientes = Array.prototype.slice.call(document.querySelectorAll('.ing'));
+
+  function abrirIngrediente(tarjeta) {
+    ingredientes.forEach(function (otra) {
+      var activa = otra === tarjeta;
+      otra.classList.toggle('is-activa', activa);
+      otra.setAttribute('aria-expanded', String(activa));
+    });
+  }
+
+  ingredientes.forEach(function (tarjeta) {
+    tarjeta.addEventListener('mouseenter', function () { abrirIngrediente(tarjeta); });
+    tarjeta.addEventListener('click', function () { abrirIngrediente(tarjeta); });
+    tarjeta.addEventListener('focus', function () { abrirIngrediente(tarjeta); });
+
+    tarjeta.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        abrirIngrediente(tarjeta);
+      }
+    });
   });
 
   /* -------------------------------------------------------
@@ -406,9 +592,121 @@
   });
 
   /* -------------------------------------------------------
-     8. DETALLES
+     8. INTRO DE CARGA (patron sofihealth)
+     Dos tapas cerradas se abren en vertical, pasan tres palabras
+     partidas en letras con mascara, y al final el bloque entero sube
+     y descubre el sitio.
+     ------------------------------------------------------- */
+  function reproducirIntro(alTerminar) {
+    var intro = document.getElementById('intro');
+
+    if (!document.documentElement.classList.contains('con-intro')) {
+      if (intro) intro.remove();
+      alTerminar();
+      return;
+    }
+
+    try { sessionStorage.setItem('norea-intro', '1'); } catch (e) {}
+
+    var contador = document.getElementById('intro-contador');
+    var palabras = Array.prototype.slice.call(intro.querySelectorAll('.intro-palabra'));
+
+    // se reutiliza el mismo split del resto del sitio
+    var letras = palabras.map(partirEnCaracteres);
+
+    /* Tiempos de cada palabra. Se encadenan con posiciones relativas
+       ('>' = cuando termina lo anterior) en vez de tiempos absolutos:
+       el stagger alarga la entrada mas alla de su duration, asi que
+       calcularlos a mano hacia que una palabra entrara encima de la
+       anterior antes de que esta terminara de salir. */
+    var ENTRA = 0.42;      // duracion de la entrada de cada letra
+    var SOSTIENE = 0.10;   // cuanto se queda la palabra completa
+    var SALE = 0.28;       // duracion de la salida
+    var PAUSA = 0.03;      // respiro entre una palabra y la siguiente
+
+    var revelado = false;
+
+    /* Se llama cuando la cortina termino de salir. El hero no se ve
+       estatico durante la subida porque `html.con-intro [data-anim]`
+       lo mantiene oculto hasta este momento: aqui se quita la clase y
+       enseguida se crean las animaciones, sin repintado entre medias. */
+    function revelarSitio() {
+      if (revelado) return;
+      revelado = true;
+      // hay que devolver el scroll antes de medir: con overflow:hidden
+      // ScrollTrigger calcularia mal las posiciones
+      document.documentElement.classList.remove('con-intro');
+      alTerminar();
+    }
+
+    function terminar() {
+      revelarSitio();
+      intro.remove();
+    }
+
+    var tl = gsap.timeline({ onComplete: terminar });
+
+    // 1. las tapas se abren
+    tl.set(letras.flat ? letras.flat() : [].concat.apply([], letras), { yPercent: 115 })
+      .to('.intro-tapa--arriba', { yPercent: -100, duration: 0.95, ease: 'power3.inOut' }, 0)
+      .to('.intro-tapa--abajo', { yPercent: 100, duration: 0.95, ease: 'power3.inOut' }, 0)
+      .to('.intro-contador, .intro-anio', { opacity: 1, duration: 0.5, ease: EASE }, 0.45);
+
+    // 2. las palabras entran y salen por turnos, una despues de otra
+    letras.forEach(function (chars, i) {
+      var marca = 'palabra' + i;
+
+      // la primera arranca mientras las tapas siguen abriendose;
+      // las demas, cuando la anterior termino de salir
+      tl.addLabel(marca, i === 0 ? 0.4 : '>' + PAUSA);
+
+      tl.call(function () {
+        contador.textContent = '00' + (i + 1);
+      }, null, marca);
+
+      tl.to(chars, {
+        yPercent: 0,
+        duration: ENTRA,
+        ease: EASE,
+        stagger: 0.016
+      }, marca);
+
+      // la ultima se queda: sale junto con el bloque completo
+      if (i < letras.length - 1) {
+        tl.to(chars, {
+          yPercent: -115,
+          duration: SALE,
+          ease: 'power3.in',
+          stagger: 0.010
+        }, '>' + SOSTIENE);
+      }
+    });
+
+    // 3. el bloque entero sube y aparece el sitio
+    tl.to(intro, {
+      yPercent: -100,
+      duration: 0.9,
+      ease: 'power4.inOut'
+    }, '>0.25');
+
+    // saltarse la intro con un clic o con una tecla
+    function saltar() {
+      tl.progress(1);
+    }
+    intro.addEventListener('click', saltar);
+    window.addEventListener('keydown', saltar, { once: true });
+
+    // red de seguridad: si algo falla, la intro no bloquea el sitio
+    setTimeout(function () {
+      if (document.body.contains(intro)) saltar();
+    }, 8000);
+  }
+
+  /* -------------------------------------------------------
+     9. DETALLES
      ------------------------------------------------------- */
   document.getElementById('anio').textContent = new Date().getFullYear();
+  document.getElementById('intro-anio').textContent = new Date().getFullYear();
 
   // todos los enlaces internos pasan por irASeccion
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
@@ -426,6 +724,7 @@
 
   window.addEventListener('load', function () {
     ScrollTrigger.refresh();
+    reproducirIntro(iniciarRevelados);
 
     // Al recargar, el navegador restaura una posicion intermedia entre
     // secciones. Se alinea con la seccion mas cercana.

@@ -5,6 +5,60 @@ Landing de una sola página para Norea (bebidas funcionales en polvo).
 - **Estructura**: 7 secciones a pantalla completa con scroll por diapositivas, tomada de [ordercube.de](https://ordercube.de).
 - **Movimiento**: GSAP + ScrollTrigger con texto que entra letra por letra y parallax de fondos, tomado de [vita-travel.webflow.io](https://vita-travel.webflow.io).
 - **Sección "Para quién"**: tarjetas que se apilan con `position:sticky`, tomada de [pxpush.com](https://pxpush.com).
+- **Intro de carga**: dos tapas que se abren y palabras gigantes por turnos, tomada de [sofihealth.com](https://www.sofihealth.com).
+- **Sección "Líneas"**: ficha de producto con conmutador numérico abajo a la
+  derecha, inspirada en la referencia de STILL.
+
+## Sobre la marquesina de reseñas ("Testimonios")
+
+Dos filas de tarjetas que se desplazan solas de izquierda a derecha, con
+`@keyframes` puros (sin JavaScript de animación):
+
+```css
+@keyframes desliza{
+  from{transform:translate3d(-50%,0,0);}
+  to{transform:translate3d(0,0,0);}
+}
+```
+
+Cada fila tiene su propia velocidad vía `--velocidad` en el HTML (52s la de
+arriba, 64s la de abajo) para que no parezcan un bloque sólido.
+
+Dos detalles que hacen que el ciclo no tenga costura:
+
+- **El JS duplica las tarjetas** de cada pista al cargar. Así el `-50%` cae
+  exactamente al final del primer juego y el salto es invisible. Las copias
+  llevan `aria-hidden` para no repetirse a los lectores de pantalla.
+- **La separación va como `margin-right` y no como `gap`.** Con `gap` sobraría
+  medio hueco en el ciclo y la costura se notaría: el `-50%` de un track con
+  `gap` no coincide con un juego completo de tarjetas.
+
+Al pasar el cursor (o al enfocar con teclado) la fila se detiene, para poder
+leer. Con `prefers-reduced-motion` no hay animación: se vuelve una tira que se
+desplaza a mano.
+
+El degradado de fondo es la adaptación del morado de la referencia a la paleta:
+oscuro casi negro arriba y un foco de lima encendido abajo al centro
+(`.pane-media--testi`). El velo por defecto de las secciones se sustituye por uno
+que solo oscurece la parte superior, si no apagaría el degradado.
+
+## Sobre las fichas de producto ("Líneas")
+
+Las dos fichas viven en la misma celda de grid (`grid-area:1/1`), así que al
+cambiar de una a otra el alto no salta. La inactiva lleva `hidden`.
+
+Al pulsar `01` / `02` cambian a la vez: nombre, sabor, descripción, fórmula,
+total, la etiqueta, el numeral gigante del fondo y la imagen. El contador `1 / 2`
+de la esquina superior derecha se actualiza solo.
+
+- Marcado como *tabs* accesibles: `role="tablist"` / `role="tab"` /
+  `role="tabpanel"` con `aria-selected`, y las flechas ← → mueven entre fichas.
+- La bandera `cambiando` bloquea clics repetidos mientras corre la transición.
+- Con `prefers-reduced-motion` el cambio es instantáneo, sin animación.
+
+**Para añadir una tercera línea**: duplicar un `<article class="ficha">` con
+`id="ficha-3"`, agregar su botón en `.fichas-nav`, y cambiar el `/ 2` del
+contador. El JavaScript no necesita tocarse, recorre lo que encuentre.
 
 ## Cómo verlo
 
@@ -72,6 +126,43 @@ El easing es `power3.out` en todo el sitio, igual que en la referencia.
 El parallax de fondos usa `data-speed` en `.pane-media` (valores menores a 1
 mueven el fondo más lento que el scroll).
 
+## Sobre la intro de carga
+
+Dura unos 3.4 segundos y va así:
+
+1. Pantalla verde completa: las dos tapas (`50% + 1px` de alto cada una) están
+   cerradas. El `+1px` evita la línea de subpíxel donde se juntan.
+2. Se abren en vertical y descubren el fondo crema, con el contador `001` a la
+   izquierda y `©año` a la derecha.
+3. Pasan tres palabras —**nutre**, **tu**, **potencial**— partidas en letras que
+   suben con máscara. Cada una entra, sale, y el contador avanza a `002` y `003`.
+4. El bloque completo sube y aparece el sitio.
+
+Detalles de implementación:
+
+- **Cuántas veces se ve.** Lo controla `window.NOREA_INTRO_UNA_VEZ`, en el script
+  inline al principio del `<body>`. Ahora está en `false`: la intro corre en cada
+  recarga, que es lo cómodo mientras se trabaja en ella. **Antes de publicar,
+  ponerlo en `true`** para que solo corra la primera visita de cada sesión y no
+  se vuelva un peaje.
+  Ese script consulta `sessionStorage` y `prefers-reduced-motion` *antes de
+  pintar*, y solo entonces añade la clase `con-intro` al `<html>`. Sin esa clase
+  la intro es `display:none`, así que no hay ni un parpadeo cuando toca saltarla.
+- **Los revelados del sitio esperan.** `iniciarRevelados()` se llama cuando la
+  intro termina. Si se crearan antes, los ScrollTrigger se dispararían detrás del
+  overlay y el hero aparecería ya montado, sin animación.
+- **Se puede saltar** con un clic o cualquier tecla.
+- **Red de seguridad**: a los 8 segundos la intro se cierra sola pase lo que
+  pase, para que un fallo de GSAP no deje el sitio bloqueado.
+- El split de letras reutiliza `partirEnCaracteres()`, el mismo del resto del
+  sitio.
+
+Con `NOREA_INTRO_UNA_VEZ = true`, para volver a verla sin cerrar la pestaña:
+
+```js
+sessionStorage.removeItem('norea-intro')
+```
+
 ## Sobre las tarjetas apiladas ("Para quién")
 
 El apilado es **CSS puro**: cada `.stack-item` es `position:sticky` con un `top`
@@ -102,8 +193,8 @@ desactiva: las tarjetas se leen una tras otra y el espacio final se reduce a cer
       producto y las cuatro tarjetas apiladas de "Para quién" tienen placeholder.
       Reemplazar por fotografía de producto, de la bebida ya preparada y de las
       cuatro situaciones de uso.
-- [ ] **Dosis reales de ingredientes** en la sección Ciencia (las actuales son de
-      ejemplo).
+- [ ] **Dosis reales de ingredientes** en las secciones Líneas y Ciencia (las
+      actuales son de ejemplo y deben coincidir entre sí y con la etiqueta).
 - [ ] **Testimonios reales** con foto, de preferencia verificados.
 - [ ] **Conectar el formulario**: hoy solo valida en cliente. Falta el envío a
       Mailchimp, Klaviyo o un endpoint propio (ver el `TODO` en `js/norea.js`).
@@ -115,6 +206,8 @@ desactiva: las tarjetas se leen una tras otra y el espacio final se reduce a cer
       en términos de bienestar y ya incluye la leyenda "Este producto no es un
       medicamento", pero conviene que alguien de regulatorio revise textos y
       etiquetas antes de publicar.
+- [ ] **Poner `window.NOREA_INTRO_UNA_VEZ = true`** en `index.html` para que la
+      intro no se repita en cada recarga.
 - [ ] **Versionado de assets**: `css/norea.css?v=1` y `js/norea.js?v=1`. Subir el
       número al hacer cambios para que el navegador no sirva la versión vieja.
 
