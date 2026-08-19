@@ -713,8 +713,11 @@ body.tema-claro .dots{color:var(--texto-oscuro);}
   .stack-visual{margin-top:22px;min-height:190px;}
 }
 
-/* en movil no hay apilado: lectura lineal, sin el espacio extra */
-@media (max-width:767px){
+/* En movil y tablet no hay apilado: lectura lineal, sin el espacio
+   extra. El efecto necesita las tres columnas para leerse como
+   tarjetas encimandose; en una sola columna solo serian bloques
+   pegajosos y obligarian a un scroll larguisimo. */
+@media (max-width:1023px){
   .stack-item{position:static;}
   .stack-final{height:0;}
 }
@@ -1107,6 +1110,23 @@ hr.fino{
   .fichas-cabecera{flex-direction:column;gap:10px;}
 }
 
+/* ---------- TABLET (iPad vertical) ----------
+   Entre 768 y 1023 el menu ya es hamburguesa y no hay snap, pero la
+   ficha de producto en una columna se pasaba de alto: 1185px contra
+   1024 de pantalla. Se compacta para que entre en un vistazo.
+   -------------------------------------------- */
+@media (min-width:768px) and (max-width:1023px){
+  .ficha{gap:16px;}
+  .ficha-imagen{width:min(100%,180px);}
+  .ficha-visual{min-height:0;}
+  .ficha-nombre{font-size:clamp(2rem,4.6vw,3.2rem);}
+  .ficha-desc{margin-top:.7em;max-width:52ch;}
+  hr.fino{margin:14px 0;max-width:none;}
+  .ficha-formula{gap:6px;max-width:none;}
+  .ficha-total{max-width:none;}
+  .fichas{margin-top:20px;}
+}
+
 /* ---------- 14. TESTIMONIOS: MARQUESINA DE RESENAS ----------
    Dos filas que se desplazan solas de izquierda a derecha con
    @keyframes. El JS duplica las tarjetas de cada pista para que el
@@ -1334,8 +1354,10 @@ hr.fino{
   max-width:44ch;
 }
 
-/* en pantallas chicas el acordeon se vuelve una columna legible */
-@media (max-width:767px){
+/* En pantallas chicas el acordeon se vuelve una columna legible. A
+   768px la tarjeta abierta se quedaba en 331px con el texto en 293:
+   ilegible al lado de cinco franjas de 64px. */
+@media (max-width:1023px){
   .ingredientes{
     flex-direction:column;
     height:auto;
